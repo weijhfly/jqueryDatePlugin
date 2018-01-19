@@ -1,0 +1,27 @@
+{
+  "name": "jquery-date",
+  "version": "1.0.8",
+  "description": "the mobile jquery date plugin",
+  "main": "jquery.date.js",
+  "bin": "jquery.date.js",
+  "scripts": {
+    "webpack": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jquery",
+    "date"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weijhfly/jqueryDatePlugin"
+  },
+  "author": "wjh",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
+}

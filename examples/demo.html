@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>date demo</title>
+</head>
+<body>
+	<h3>时间选择</h3>
+	<hr>
+	时间1
+	<input type="text" id="date" data-options='{"type":"YYYY-MM","beginYear":2010,"endYear":2088}'style="width:166px;height:19px;">
+	<hr>
+	时间2
+	<input type="text" id="date2" data-options='{"type":"YYYY-MM-DD","beginYear":2010,"endYear":2088}'style="width:166px;height:19px;">
+	<hr>
+	时间3
+	<input type="text" id="date3" data-options='{"type":"YYYY-MM-DD hh:mm","beginYear":2010,"endYear":2088}'style="width:166px;height:19px;">
+	<hr>
+	时间4
+	<button type="text" id="date4" data-options='{"type":"YYYY-MM-DD hh:mm:ss","beginYear":2010,"endYear":2088}' style="width:170px;height:25px;vertical-align: middle;text-align: left;"></button>
+	<hr>
+	时间5
+	<input type="text" id="date5" data-options='{"type":"YYYY-MM-DD","beginYear":2010,"endYear":2088,"limitTime":"today"}'style="width:166px;height:19px;">
+	
+	<script src="../dist/build.js"></script>
+</body>
+</html>
