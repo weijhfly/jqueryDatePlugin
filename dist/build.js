@@ -10460,7 +10460,7 @@ $.date('#date5');
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jquery.date.js v1.1.0
+ * jquery.date.js v1.1.1
  * by weijianhua  https://github.com/weijhfly/jqueryDatePlugin
 */
 (function (factory) {
@@ -10858,7 +10858,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
         if(opt.limitTime == 'today'){
             var d = new Date(),
-				error = isEnglish ? '不能选择过去的时间':'You can\'t choose the past time';
+				error = !isEnglish ? '不能选择过去的时间':'You can\'t choose the past time';
             //当前日期
             var day = String(d.getFullYear())+'-'+String(d.getMonth() + 1)+'-'+String(d.getDate());
             var d1 = new Date(str.replace(/\-/g, "\/")); 
@@ -10869,7 +10869,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             }  
         }else if(opt.limitTime == 'tomorrow'){
             var d = new Date(),
-				error = isEnglish ? '时间最少选择明天':'Choose tomorrow at least';
+				error = !isEnglish ? '时间最少选择明天':'Choose tomorrow at least';
             //当前日期+1
             var day = String(d.getFullYear())+'-'+String(d.getMonth() + 1)+'-'+String(d.getDate()+1);
             var d1 = new Date(str.replace(/\-/g, "\/")); 
