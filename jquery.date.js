@@ -1,6 +1,6 @@
 /*!
- * jquery.date.js
- * by weijianhua  https://github.com/weijhfly
+ * jquery.date.js v1.1.9
+ * by weijianhua  https://github.com/weijhfly/jqueryDatePlugin
 */
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
@@ -15,40 +15,52 @@
 	}
 }(function ($) {
     var defaults,
-    d = new Date(),
-    nowYear = d.getFullYear(),
-    nowMonth = d.getMonth() + 1,
-    domDate,
-    createDate,
-    body = $('body'),
-    emptyStr = "<li></li>",
-	domD = '<div class="t3">日</div>',
-    domD2 = '<ol id="d-day"></ol>',
-    domHm = '<div class="t4">时</div><div class="t5">分</div>',
-    domHm2 = '<ol id="d-hours"></ol><ol id="d-minutes"></ol>',
-    domS = '<div class="t6">秒</div>',
-    domS2 = '<ol id="d-seconds"></ol>',
-    isTouch = "ontouchend" in document ? true : false,
-    tstart = isTouch ? "touchstart" : "mousedown",
-    tmove = isTouch ? "touchmove" : "mousemove",
-    tend = isTouch ? "touchend" : "mouseup",
-    tcancel = isTouch ? "touchcancel" : "mouseleave",
-	
-    opts = {            
-        beginYear: 2010,        
-        endYear: 2088,            
-        type:'YYYY-MM-DD',
-        limitTime:false//限制选择时间 today 今天之前的时间不可选 tomorrow 明天之前的不可选
-    };
+        d = new Date(),
+        doc = window.document,
+        nowYear = d.getFullYear(),
+        nowMonth = d.getMonth() + 1,
+        domDate,
+        createDate,
+        body = $('body'),
+        emptyStr = "<li></li>",
+    	domD = '<div class="t3">日</div>',
+        domD2 = '<ol id="d-day"></ol>',
+        domHm = '<div class="t4">时</div><div class="t5">分</div>',
+        domHm2 = '<ol id="d-hours"></ol><ol id="d-minutes"></ol>',
+        domS = '<div class="t6">秒</div>',
+        domS2 = '<ol id="d-seconds"></ol>',
+        isTouch = "ontouchend" in doc,
+        tstart = isTouch ? "touchstart" : "mousedown",
+        tmove = isTouch ? "touchmove" : "mousemove",
+        tend = isTouch ? "touchend" : "mouseup",
+        tcancel = isTouch ? "touchcancel" : "mouseleave",
+        isEnglish = navigator.language.indexOf('zh') == -1,
+        //支持的时间格式展示
+        dateFormat = [
+			//年月日 时分秒
+			['YYYY-MM-DD hh:mm:ss','YY-MM-DD hh:mm:ss','YYYY/MM/DD hh:mm:ss','YY/MM/DD hh:mm:ss'],
+			//年月日 时分
+			['YYYY-MM-DD hh:mm','YY-MM-DD hh:mm','YYYY/MM/DD hh:mm','YY/MM/DD hh:mm'],
+			//年月日
+			['YYYY-MM-DD','YY-MM-DD','YYYY/MM/DD','YY/MM/DD'],
+			//年月
+			['YYYY-MM','YY-MM','YYYY/MM','YY/MM']
+        ],
+    	
+        opts = {            
+            beginYear: 2010,        
+            endYear: 2088, //可不填，结束年份不会小于当前年份           
+            type:'YYYY-MM-DD',
+            limitTime:false//限制选择时间 today 今天之前的时间不可选 tomorrow 明天之前的不可选
+        };
     //dom渲染
     domDate = '<div id="date-wrapper"><h3>选择日期</h3><div id="d-content"><div id="d-tit"><div class="t1">年</div><div class="t2">月</div>' + '<div class="t3">日</div></div><div id="d-bg"><ol id="d-year"></ol><ol id="d-month"></ol>' + '<ol id="d-day"></ol>' + '</div></div><a id="d-cancel" href="javascript:">取消</a><a id="d-confirm" href="javascript:">确定</a></div><div id="d-mask"></div>';
     var css = '<style type="text/css">a{text-decoration:none;}ol,li{margin:0;padding:0}li{list-style-type:none}#date-wrapper{position:fixed;top:20%;left:50%;width:90%;margin-left:-45%;z-index:56;text-align:center;background:#fff;border-radius:3px;padding-bottom:15px;display:none}#d-mask{position:fixed;width:100%;height:100%;top:0;left:0;background:#000;filter:alpha(Opacity=50);-moz-opacity:.5;opacity:.5;z-index:55;display:none}#date-wrapper h3{line-height:50px;background:#79c12f;color:#fff;font-size:20px;margin:0;border-radius:3px 3px 0 0}#date-wrapper ol,#d-tit>div{width:16.6666666%;float:left;position:relative}#d-content{padding:10px}#d-content #d-bg{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:0 0 5px 5px;height:120px;overflow:hidden;margin-bottom:10px;position:relative}#d-cancel,#d-confirm{border-radius:3px;float:left;width:40%;line-height:30px;font-size:16px;background:#dcdddd;color:#666;margin:0 5%}#d-confirm{background:#79c12f;color:#fff}#date-wrapper li{line-height:40px;height:40px;cursor:pointer;position:relative}#d-tit{background:#f8f8f8;overflow:hidden;border-radius:5px 5px 0 0;line-height:30px;border:1px solid #e0e0e0;margin-bottom:-1px}#date-wrapper ol{-webkit-overflow-scrolling:touch;position:absolute;top:0;left:0}#date-wrapper ol:nth-child(2){left:16.6666666%}#date-wrapper ol:nth-child(3){left:33.3333332%}#date-wrapper ol:nth-child(4){left:49.9999998%}#date-wrapper ol:nth-child(5){left:66.6666664%}#date-wrapper ol:nth-child(6){left:83.333333%}#d-content #d-bg:after{content:\'\';height:40px;background:#ddd;position:absolute;top:40px;left:0;width:100%;z-index:1}#date-wrapper li span{position:absolute;width:100%;z-index:99;height:100%;left:0;top:0}#date-wrapper.two ol,.two #d-tit>div{width:50%}#date-wrapper.two ol:nth-child(2){left:50%}#date-wrapper.three ol,.three #d-tit>div{width:33.333333%}#date-wrapper.three ol:nth-child(2){left:33.333333%}#date-wrapper.three ol:nth-child(3){left:66.666666%}#date-wrapper.four ol,.four #d-tit>div{width:25%}#date-wrapper.four ol:nth-child(2){left:25%}#date-wrapper.four ol:nth-child(3){left:50%}#date-wrapper.four ol:nth-child(4){left:75%}#date-wrapper.five ol,.five #d-tit>div{width:20%}#date-wrapper.five ol:nth-child(2){left:20%}#date-wrapper.five ol:nth-child(3){left:40%}#date-wrapper.five ol:nth-child(4){left:60%}#date-wrapper.five ol:nth-child(5){left:80%}</style>';
-	if(navigator.language.indexOf('zh') == -1){
-		domDate = domDate.replace('选择日期','DatePicker ').replace('取消','cancel').replace('确定','confirm');
+	if(isEnglish){
+		domDate = domDate.replace('选择日期','DatePicker').replace('取消','cancel').replace('确定','confirm');
 		css = css.replace('</style>','#date-wrapper #d-tit{display:none;}</style>');
 	}
-    $("head").append(css);
-    body.append(domDate);
+    body.append(css).append(domDate);
     
     createDate = {
         ymd:function(begin,end){
@@ -100,14 +112,14 @@
             slide:function(el){
             //滑动
             var T,mT,isPress = false;
-            $(document).on(tstart,'#date-wrapper ol', function(e){
+            $(doc).on(tstart,'#date-wrapper ol', function(e){
                 var e = e.originalEvent;
                 e.stopPropagation();
                 e.preventDefault();
                 T = e.pageY || e.touches[0].pageY;
                 if(!isTouch){isPress = true;}
             })
-            $(document).on(tmove,'#date-wrapper ol', function(e){
+            $(doc).on(tmove,'#date-wrapper ol', function(e){
                 var e = e.originalEvent,that = $(this);
                 e.stopPropagation();
                 e.preventDefault();
@@ -118,14 +130,14 @@
                 if (that.position().top > 0) that.css('top', '0');
                 if (that.position().top < -(that.height() - (120))) that.css('top', '-' + (that.height() - (120)) + 'px');
             })
-            $(document).on(tend,'#date-wrapper ol', function(e){
+            $(doc).on(tend,'#date-wrapper ol', function(e){
                 var e = e.originalEvent,that = $(this);
                 e.stopPropagation();
                 e.preventDefault();
                 isPress = false;
                 dragEnd(that);
             })
-            $(document).on(tcancel,'#date-wrapper ol', function(e){
+            $(doc).on(tcancel,'#date-wrapper ol', function(e){
                 var e = e.originalEvent,that = $(this);
                 e.stopPropagation();
                 e.preventDefault();
@@ -165,7 +177,7 @@
         },
         show:function(isShow){
             var domMain = $('#date-wrapper'),
-            domMask = $('#d-mask');
+                domMask = $('#d-mask');
             if (isShow) {
                 domMain.show();
                 domMask.show();
@@ -249,7 +261,7 @@
                     opt = null;
                     opt = $.extend({},opts,userOption || {});
                     createDate.ymd(opt.beginYear,opt.endYear);
-                    if(opt.type == "YYYY-MM-DD hh:mm:ss"){
+                    if(dateFormat[0].indexOf(opt.type) != -1){//年月日 时分秒
 						if($('#d-day').length == 0){
 							$('#d-tit').append(domD);
 							$('#d-bg').append(domD2);
@@ -262,7 +274,7 @@
                         createDate.hm();
                         createDate.s();
                         $('#date-wrapper').attr('class','');
-                    }else if(opt.type == "YYYY-MM-DD hh:mm"){
+                    }else if(dateFormat[1].indexOf(opt.type) != -1){//年月日 时分
 						if($('#d-day').length == 0){
 							$('#d-tit').append(domD);
 							$('#d-bg').append(domD2);
@@ -274,7 +286,7 @@
                         $('#d-bg').append(domHm2);
                         createDate.hm();
                         $('#date-wrapper').attr('class','five');
-                    }else if(opt.type == "YYYY-MM-DD"){
+                    }else if(dateFormat[2].indexOf(opt.type) != -1){//年月日
 						if($('#d-day').length == 0){
 							$('#d-tit').append(domD);
 							$('#d-bg').append(domD2);
@@ -284,7 +296,7 @@
 							$('#d-bg ol:gt(2)').remove();
 						}
                         $('#date-wrapper').attr('class','three');
-                    }else if(opt.type == "YYYY-MM"){
+                    }else if(dateFormat[3].indexOf(opt.type) != -1){//年月
                         $('#d-tit div:gt(1)').remove();
                         $('#d-bg ol:gt(1)').remove();
                         $('#date-wrapper').attr('class','two');
@@ -304,8 +316,8 @@
     $(document).on('click','#d-cancel',function(){
         createDate.clear();
     })
-     //确定
-     $(document).on('click','#d-confirm',function(){
+    //确定
+    $(document).on('click','#d-confirm',function(){
         var y = $('#d-year .active').text(),
 			m = $('#d-month .active').text(),
 			d = $('#d-day .active').text(),
@@ -313,20 +325,76 @@
 			min = $('#d-minutes .active').text(),
 			s = $('#d-seconds .active').text(),
 			str,
-			that = $($(this).attr('d-id'));
+			that = $($(this).attr('d-id')),
+            index = dateFormat[0].indexOf(opt.type),
+            index1 = dateFormat[1].indexOf(opt.type),
+            index2 = dateFormat[2].indexOf(opt.type),
+            index3 = dateFormat[3].indexOf(opt.type);
 			
-        if(opt.type == "YYYY-MM-DD hh:mm:ss"){
-            str = y+'-'+m+'-'+d+' '+h+':'+min+':'+s;   
-        }else if(opt.type == "YYYY-MM-DD hh:mm"){
-            str = y+'-'+m+'-'+d+' '+h+':'+min;
-        }else if(opt.type == "YYYY-MM-DD"){
-            str = y+'-'+m+'-'+d;
-        }else if(opt.type == "YYYY-MM"){
-            str = y+'-'+m;
+        if( index != -1){//年月日 时分秒
+            switch(index){
+				case 0:
+				  str = y+'-'+m+'-'+d+' '+h+':'+min+':'+s;
+				  break;
+				case 1:
+				  str = y.substring(2)+'-'+m+'-'+d+' '+h+':'+min+':'+s;
+				  break;
+				case 2:
+				  str = y+'/'+m+'/'+d+' '+h+':'+min+':'+s;
+				  break;
+				case 3:
+				  str = y.substring(2)+'/'+m+'/'+d+' '+h+':'+min+':'+s;
+				  break;
+			}  
+        }else if(index1 != -1){//年月日 时分
+            switch(index1){
+				case 0:
+				  str = y+'-'+m+'-'+d+' '+h+':'+min;
+				  break;
+				case 1:
+				  str = y.substring(2)+'-'+m+'-'+d+' '+h+':'+min;
+				  break;
+				case 2:
+				  str = y+'/'+m+'/'+d+' '+h+':'+min;
+				  break;
+				case 3:
+				  str = y.substring(2)+'/'+m+'/'+d+' '+h+':'+min;
+				  break;
+			}  
+        }else if(index2 != -1){//年月日
+            switch(index2){
+				case 0:
+				  str = y+'-'+m+'-'+d;
+				  break;
+				case 1:
+				  str = y.substring(2)+'-'+m+'-'+d;
+				  break;
+				case 2:
+				  str = y+'/'+m+'/'+d;
+				  break;
+				case 3:
+				  str = y.substring(2)+'/'+m+'/'+d;
+				  break;
+			}  
+        }else if(index3 != -1){//年月
+            switch(index3){
+				case 0:
+				  str = y+'-'+m;
+				  break;
+				case 1:
+				  str = y.substring(2)+'-'+m;
+				  break;
+				case 2:
+				  str = y+'/'+m;
+				  break;
+				case 3:
+				  str = y.substring(2)+'/'+m;
+				  break;
+			}  
         }
         if(opt.limitTime == 'today'){
             var d = new Date(),
-				error = navigator.language.indexOf('zh') != -1? '不能选择过去的时间':'You can\'t choose the past time';
+				error = isEnglish ? '不能选择过去的时间':'You can\'t choose the past time';
             //当前日期
             var day = String(d.getFullYear())+'-'+String(d.getMonth() + 1)+'-'+String(d.getDate());
             var d1 = new Date(str.replace(/\-/g, "\/")); 
@@ -337,7 +405,7 @@
             }  
         }else if(opt.limitTime == 'tomorrow'){
             var d = new Date(),
-				error = navigator.language.indexOf('zh') != -1? '时间最少选择明天':'Choose tomorrow at least';
+				error = isEnglish ? '时间最少选择明天':'Choose tomorrow at least';
             //当前日期+1
             var day = String(d.getFullYear())+'-'+String(d.getMonth() + 1)+'-'+String(d.getDate()+1);
             var d1 = new Date(str.replace(/\-/g, "\/")); 
@@ -353,7 +421,8 @@
         }else{
             that.text(str);
         }
-        createDate.toNow(true);
+
         createDate.show(false);
-        })
+        createDate.toNow(true);
+    })
 }))
