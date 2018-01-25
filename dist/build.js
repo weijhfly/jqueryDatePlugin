@@ -10460,7 +10460,7 @@ $.date('#date5');
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jquery.date.js v1.1.9
+ * jquery.date.js v1.1.0
  * by weijianhua  https://github.com/weijhfly/jqueryDatePlugin
 */
 (function (factory) {

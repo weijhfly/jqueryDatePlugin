@@ -1,5 +1,5 @@
 /*!
- * jquery.date.js v1.1.9
+ * jquery.date.js v1.1.0
  * by weijianhua  https://github.com/weijhfly/jqueryDatePlugin
 */
 (function (factory) {
