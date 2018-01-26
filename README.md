@@ -1,4 +1,4 @@
-# jquery-date [![npm](https://img.shields.io/npm/v/jquery-date.svg)](https://www.npmjs.com/package/jquery-date)
+# jquery-date [![npm](https://img.shields.io/npm/v/jquery-date.svg)](https://www.npmjs.com/package/jquery-date) [![npm](https://img.shields.io/npm/dm/jquery-date.svg)](https://www.npmjs.com/package/jquery-date)
 > the mobile jquery date plugin 
 
 说明
