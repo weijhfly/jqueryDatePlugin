@@ -2,8 +2,7 @@
 <html lang="zh-cn">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>date demo</title>
+	<title>兼容flexible</title>
 	<style type="text/css">
 		strong{
 			font-size: 15px;
@@ -14,7 +13,16 @@
 			background-color: #f6f8fa;
 			border-radius: 3px;
 		}
+		input,button{
+			width: 4rem;
+			height: 0.5rem;
+			border: 1px solid #999;
+			font-size: 0.35rem;
+			text-align:left;
+			padding-left:5px;
+		}
 	</style>
+	<script src="../src/flexible.js"></script>
 </head>
 <body>
 	<pre>
@@ -49,23 +57,23 @@
 	<hr>
 	年月
 	<br>
-	<input type="text" id="date" data-options="{'type':'YYYY-MM','beginYear':2010,'endYear':2088}" style="width:166px;height:19px;">
+	<input type="text" id="date" data-options="{'type':'YYYY-MM','beginYear':2010,'endYear':2088}">
 	<hr>
 	年月日
 	<br>
-	<input type="text" id="date2" data-options="{'type':'YYYY-MM-DD','beginYear':2010,'endYear':2088}" style="width:166px;height:19px;">
+	<input type="text" id="date2" data-options="{'type':'YYYY-MM-DD','beginYear':2010,'endYear':2088}">
 	<hr>
 	年月日 时分
 	<br>
-	<input type="text" id="date3" data-options="{'type':'YYYY-MM-DD hh:mm','beginYear':2010,'endYear':2088}" style="width:166px;height:19px;">
+	<input type="text" id="date3" data-options="{'type':'YYYY-MM-DD hh:mm','beginYear':2010,'endYear':2088}">
 	<hr>
 	年月日 时分秒
 	<br>
-	<button type="text" id="date4" data-options="{'type':'YYYY-MM-DD hh:mm:ss','beginYear':2010,'endYear':2088}" style="width:170px;height:25px;vertical-align: middle;text-align: left;"></button>
+	<button type="text" id="date4" data-options="{'type':'YYYY-MM-DD hh:mm:ss','beginYear':2010,'endYear':2088}"></button>
 	<hr>
 	时间限制
 	<br>
-	<input type="text" id="date5" data-options="{'type':'YYYY-MM-DD','beginYear':2010,'endYear':2088,'limitTime':'today'}" style="width:166px;height:19px;">
+	<input type="text" id="date5" data-options="{'type':'YYYY-MM-DD','beginYear':2010,'endYear':2088,'limitTime':'today'}">
 	<br>
 	<br>
 	<br>

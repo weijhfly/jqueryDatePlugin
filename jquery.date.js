@@ -1,6 +1,7 @@
 /*!
- * jquery.date.js v1.1.1
- * by weijianhua  https://github.com/weijhfly/jqueryDatePlugin
+ * jquery.date.js v1.2.1
+ * By weijianhua  https://github.com/weijhfly/jqueryDatePlugin
+ * Time:2017/1/24
 */
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
@@ -35,6 +36,10 @@
         tend = isTouch ? "touchend" : "mouseup",
         tcancel = isTouch ? "touchcancel" : "mouseleave",
         isEnglish = navigator.language.indexOf('zh') == -1,
+		//基于40px的高度滑动,自适应就改动这或者dpr
+		h = 40,
+		dpr = $('html').attr('data-dpr') || 1,
+		resH = h*dpr,
         //支持的时间格式展示
         dateFormat = [
 			//年月日 时分秒
@@ -56,9 +61,18 @@
     //dom渲染
     domDate = '<div id="date-wrapper"><h3>选择日期</h3><div id="d-content"><div id="d-tit"><div class="t1">年</div><div class="t2">月</div>' + '<div class="t3">日</div></div><div id="d-bg"><ol id="d-year"></ol><ol id="d-month"></ol>' + '<ol id="d-day"></ol>' + '</div></div><a id="d-cancel" href="javascript:">取消</a><a id="d-confirm" href="javascript:">确定</a></div><div id="d-mask"></div>';
     var css = '<style type="text/css">a{text-decoration:none;}ol,li{margin:0;padding:0}li{list-style-type:none}#date-wrapper{position:fixed;top:20%;left:50%;width:90%;margin-left:-45%;z-index:56;text-align:center;background:#fff;border-radius:3px;padding-bottom:15px;display:none}#d-mask{position:fixed;width:100%;height:100%;top:0;left:0;background:#000;filter:alpha(Opacity=50);-moz-opacity:.5;opacity:.5;z-index:55;display:none}#date-wrapper h3{line-height:50px;background:#79c12f;color:#fff;font-size:20px;margin:0;border-radius:3px 3px 0 0}#date-wrapper ol,#d-tit>div{width:16.6666666%;float:left;position:relative}#d-content{padding:10px}#d-content #d-bg{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:0 0 5px 5px;height:120px;overflow:hidden;margin-bottom:10px;position:relative}#d-cancel,#d-confirm{border-radius:3px;float:left;width:40%;line-height:30px;font-size:16px;background:#dcdddd;color:#666;margin:0 5%}#d-confirm{background:#79c12f;color:#fff}#date-wrapper li{line-height:40px;height:40px;cursor:pointer;position:relative}#d-tit{background:#f8f8f8;overflow:hidden;border-radius:5px 5px 0 0;line-height:30px;border:1px solid #e0e0e0;margin-bottom:-1px}#date-wrapper ol{-webkit-overflow-scrolling:touch;position:absolute;top:0;left:0}#date-wrapper ol:nth-child(2){left:16.6666666%}#date-wrapper ol:nth-child(3){left:33.3333332%}#date-wrapper ol:nth-child(4){left:49.9999998%}#date-wrapper ol:nth-child(5){left:66.6666664%}#date-wrapper ol:nth-child(6){left:83.333333%}#d-content #d-bg:after{content:\'\';height:40px;background:#ddd;position:absolute;top:40px;left:0;width:100%;z-index:1}#date-wrapper li span{position:absolute;width:100%;z-index:99;height:100%;left:0;top:0}#date-wrapper.two ol,.two #d-tit>div{width:50%}#date-wrapper.two ol:nth-child(2){left:50%}#date-wrapper.three ol,.three #d-tit>div{width:33.333333%}#date-wrapper.three ol:nth-child(2){left:33.333333%}#date-wrapper.three ol:nth-child(3){left:66.666666%}#date-wrapper.four ol,.four #d-tit>div{width:25%}#date-wrapper.four ol:nth-child(2){left:25%}#date-wrapper.four ol:nth-child(3){left:50%}#date-wrapper.four ol:nth-child(4){left:75%}#date-wrapper.five ol,.five #d-tit>div{width:20%}#date-wrapper.five ol:nth-child(2){left:20%}#date-wrapper.five ol:nth-child(3){left:40%}#date-wrapper.five ol:nth-child(4){left:60%}#date-wrapper.five ol:nth-child(5){left:80%}</style>';
+	
 	if(isEnglish){
 		domDate = domDate.replace('选择日期','DatePicker').replace('取消','cancel').replace('确定','confirm');
 		css = css.replace('</style>','#date-wrapper #d-tit{display:none;}</style>');
+	}
+	if(h != 40){
+		css = css.replace('40px',h+'px');
+	}
+	if(dpr != 1){
+		css = css.replace(/(\d+)px/g,function(i){
+			return i.replace(/\D/g,'')*dpr + 'px';
+		});
 	}
     body.append(css).append(domDate);
     
@@ -128,7 +142,7 @@
                 that.css('top', that.position().top + (mT - T) + 'px');
                 T = mT;
                 if (that.position().top > 0) that.css('top', '0');
-                if (that.position().top < -(that.height() - (120))) that.css('top', '-' + (that.height() - (120)) + 'px');
+                if (that.position().top < -(that.height() - (3*resH))) that.css('top', '-' + (that.height() - (3*resH)) + 'px');
             })
             $(doc).on(tend,'#date-wrapper ol', function(e){
                 var e = e.originalEvent,that = $(this);
@@ -147,10 +161,10 @@
             function dragEnd(that){
                 //滚动调整
                 var t = that.position().top;
-                that.css('top',Math.round(t/40)*40+'px');
+                that.css('top',Math.round(t/resH)*resH+'px');
                 //定位active
                 t = Math.round(Math.abs($(that).position().top));
-                var li = that.children('li').get(t/40+1);
+                var li = that.children('li').get(t/resH+1);
                 $(li).addClass('active').siblings().removeClass('active');
                 //修正日期
                 var id = that.attr('id');
@@ -170,7 +184,7 @@
                             }
                         }
                         $('#d-day').html(emptyStr + str + emptyStr);
-                        if(Math.abs($('#d-day').position().top) > $('#d-day').height()-120)$('#d-day').css('top','-'+($('#d-day').height()-120)+'px');
+                        if(Math.abs($('#d-day').position().top) > $('#d-day').height()-3*resH)$('#d-day').css('top','-'+($('#d-day').height()-3*resH)+'px');
                     }
                 }
             }
@@ -224,7 +238,7 @@
             if (!refresh) {
                 $('#date-wrapper ol').each(function(){
                     var that = $(this);
-                    var liTop = -(that.children('.active').position().top -40);
+                    var liTop = -(that.children('.active').position().top -resH);
                     that.animate({
                         top: liTop
                     },
