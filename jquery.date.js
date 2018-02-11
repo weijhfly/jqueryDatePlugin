@@ -1,6 +1,6 @@
 /*!
- * jquery.date.js v1.2.1
- * By weijianhua  https://github.com/weijhfly/jqueryDatePlugin
+ * jquery.date.js v1.2.2
+ * By 雾空 https://github.com/weijhfly/jqueryDatePlugin
  * Time:2017/1/24
 */
 (function (factory) {
