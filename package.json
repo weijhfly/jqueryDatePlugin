@@ -1,6 +1,6 @@
 {
   "name": "jquery-date",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "the mobile jquery date plugin",
   "main": "jquery.date.js",
   "bin": "jquery.date.js",
@@ -22,6 +22,6 @@
     "jquery": "^3.2.1"
   },
   "devDependencies": {
-    "webpack": "^3.10.0"
+    
   }
 }

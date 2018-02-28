@@ -1,6 +1,3 @@
-var $ = require('jquery');
-require('../jquery.date.js');
-
 $.date('#date');
 $.date('#date2');
 $.date('#date3');

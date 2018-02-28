@@ -1,5 +1,5 @@
 /*!
- * jquery.date.js v1.2.2
+ * jquery.date.js v1.2.3
  * By 雾空 https://github.com/weijhfly/jqueryDatePlugin
  * Time:2017/1/24
 */
