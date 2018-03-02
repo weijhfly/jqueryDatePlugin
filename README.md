@@ -1,4 +1,4 @@
-# jquery-date [![npm](https://img.shields.io/npm/v/jquery-date.svg)](https://www.npmjs.com/package/jquery-date) [![npm](https://img.shields.io/npm/dm/jquery-date.svg)](https://www.npmjs.com/package/jquery-date)
+# jquery-date [![npm](https://img.shields.io/npm/v/jquery-date.svg)](https://www.npmjs.com/package/jquery-date) 
 > the mobile jquery date plugin 
 
 说明
@@ -6,6 +6,11 @@
 - 此插件依赖jquery，且是为移动端而写，也支持pc端的使用，但因为操作不便和样式问题，所以不建议。
 - 支持年月、年月日、年月日时分、年月日时分秒，详细格式见demo.html/jquery-date.js。
 - 时间限制limitTime参数目前只做了年月日限制。
+
+下一版本计划，这里除了bug修复将不再做任何更新
+-----------------------------------
+- 不依赖jquery，实现无依赖。
+- 使用new重写，配置将不挂在dom上。
 
 使用方式
 -----------------------------------

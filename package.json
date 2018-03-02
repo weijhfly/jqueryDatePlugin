@@ -1,11 +1,10 @@
 {
   "name": "jquery-date",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "the mobile jquery date plugin",
   "main": "jquery.date.js",
   "bin": "jquery.date.js",
   "scripts": {
-    "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,7 +18,6 @@
   "author": "wjh",
   "license": "MIT",
   "dependencies": {
-    "jquery": "^3.2.1"
   },
   "devDependencies": {
     
