@@ -1,5 +1,5 @@
 /*!
- * jquery.date.js v1.2.4
+ * jquery.date.js v1.2.5
  * By 雾空 https://github.com/weijhfly/jqueryDatePlugin
  * Time:2017/1/24
 */
@@ -35,7 +35,7 @@
         tmove = isTouch ? "touchmove" : "mousemove",
         tend = isTouch ? "touchend" : "mouseup",
         tcancel = isTouch ? "touchcancel" : "mouseleave",
-        isEnglish = navigator.language.indexOf('zh') == -1,
+        isEnglish = (navigator.language || navigator.browserLanguage).toLowerCase().indexOf('zh') == -1,
 		//基于40px的高度滑动,自适应就改动这或者dpr
 		h = 40,
 		dpr = $('html').attr('data-dpr') || 1,
