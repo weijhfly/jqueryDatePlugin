@@ -1,5 +1,5 @@
 /*!
- * jquery.date.js v1.3.5
+ * jquery.date.js v1.3.6
  * By 雾空 https://github.com/weijhfly/jqueryDatePlugin
  * Time:2017/1/24
 */
@@ -86,11 +86,17 @@
 			for (var j = 1; j <= 12; j++) {j = j<10?'0'+j:j;domMonth += '<li><span>' + j + '</span></li>';}
             $('#d-month').html(emptyStr + domMonth + emptyStr);
 		},
-		d:function(end){
+		d:function(end,active){
 			var end = end || createDate.bissextile(nowYear,nowMonth),
 				domDay = '';
-			
-            for (var k = 1; k <= end; k++) {k = k<10?'0'+k:k;domDay += '<li><span>' + k + '</span></li>';}
+            for (var k = 1; k <= end; k++) {
+				k = k<10?'0'+k:k;
+				if(active && active == k){
+					domDay += '<li class="active"><span>' + k + '</span></li>';
+				}else{
+					domDay += '<li><span>' + k + '</span></li>';
+				}
+			}
             $('#d-day').html(emptyStr + domDay + emptyStr);
 		},
         hm:function(){
@@ -178,10 +184,10 @@
                     if(elDay.length == 0){return false;}
                     var end = createDate.bissextile($('#d-year .active').text(),$('#d-month .active').text());
                     if(end != (elDay.children().length-2)){
-                        var thisActive = elDay.children('active').text();
+                        var active = elDay.children('.active').text();
 						
-                        thisActive > end && (thisActive = end);
-                        createDate.d(end);
+                        active > end && (active = end);
+                        createDate.d(end,active);
                         if(Math.abs(elDay.position().top) > elDay.height()-3*resH)elDay.css('top','-'+(elDay.height()-3*resH)+'px');
                     }
                 }
