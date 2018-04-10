@@ -1,5 +1,5 @@
 /*!
- * jquery.date.js v1.3.8
+ * jquery.date.js v1.3.9
  * By 雾空 https://github.com/weijhfly/jqueryDatePlugin
  * Time:2017/1/24
 */
@@ -133,18 +133,18 @@
         },
         slide:function(el){
             //滑动
-            var T,mT,isPress = false;
-            $(doc).on(tstart,'#date-wrapper ol', function(e){
-                var e = e.originalEvent;
-                e.stopPropagation();
+            var T,mT,isPress = false,el = $('#date-wrapper ol');
+            el.bind(tstart, function(e){
+				e.stopPropagation();
                 e.preventDefault();
+                var e = e.originalEvent;
                 T = e.pageY || e.touches[0].pageY;
                 if(!isTouch){isPress = true;}
             })
-            $(doc).on(tmove,'#date-wrapper ol', function(e){
-                var e = e.originalEvent,that = $(this);
-                e.stopPropagation();
+            el.bind(tmove, function(e){
+				e.stopPropagation();
                 e.preventDefault();
+                var e = e.originalEvent,that = $(this);
                 if(!isTouch && !isPress){return false};
                 mT = e.pageY || e.touches[0].pageY;
                 that.css('top', that.position().top + (mT - T) + 'px');
@@ -152,17 +152,17 @@
                 if (that.position().top > 0) that.css('top', '0');
                 if (that.position().top < -(that.height() - (3*resH))) that.css('top', '-' + (that.height() - (3*resH)) + 'px');
             })
-            $(doc).on(tend,'#date-wrapper ol', function(e){
-                var e = e.originalEvent,that = $(this);
-                e.stopPropagation();
+            el.bind(tend, function(e){
+				e.stopPropagation();
                 e.preventDefault();
+                var e = e.originalEvent,that = $(this);
                 isPress = false;
                 dragEnd(that);
             })
-            $(doc).on(tcancel,'#date-wrapper ol', function(e){
-                var e = e.originalEvent,that = $(this);
-                e.stopPropagation();
+            el.bind(tcancel, function(e){
+				e.stopPropagation();
                 e.preventDefault();
+                var e = e.originalEvent,that = $(this);
                 isPress = false;
 				// 解决一个pc端莫名触发问题
 				if(!isTouch && + new Date() > time + 600){
