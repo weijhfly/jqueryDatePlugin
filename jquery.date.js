@@ -1,5 +1,5 @@
 /*!
- * jquery.date.js v1.3.9
+ * jquery.date.js v1.4.0
  * By 雾空 https://github.com/weijhfly/jqueryDatePlugin
  * Time:2017/1/24
 */
@@ -45,7 +45,9 @@
 			//年月日
 			['YYYY-MM-DD','YY-MM-DD','YYYY/MM/DD','YY/MM/DD'],
 			//年月
-			['YYYY-MM','YY-MM','YYYY/MM','YY/MM']
+			['YYYY-MM','YY-MM','YYYY/MM','YY/MM'],
+			//时分秒 时分
+			['hh:mm:ss','hh:mm']
         ],
     	
         opts = {            
@@ -57,7 +59,7 @@
         };
     //dom渲染
     domDate = '<div id="date-wrapper"><h3>选择日期</h3><div id="d-content"><div id="d-tit"><div class="t1">年</div><div class="t2">月</div><div class="t3">日</div><div class="t4">时</div><div class="t5">分</div><div class="t6">秒</div></div><div id="d-bg"><ol id="d-year"></ol><ol id="d-month"></ol><ol id="d-day"></ol><ol id="d-hours"></ol><ol id="d-minutes"></ol><ol id="d-seconds"></ol></div></div><a id="d-cancel" href="javascript:">取消</a><a id="d-confirm" href="javascript:">确定</a></div><div id="d-mask"></div>';
-    var css = '<style type="text/css">a{text-decoration:none;}ol,li{margin:0;padding:0}li{list-style-type:none}#date-wrapper{position:fixed;top:50%;left:50%;width:90%;margin: -139px 0 0 -45%;z-index:56;text-align:center;background:#fff;border-radius:3px;padding-bottom:15px;display:none}#d-mask{position:fixed;width:100%;height:100%;top:0;left:0;background:#000;filter:alpha(Opacity=50);-moz-opacity:.5;opacity:.5;z-index:55;display:none}#date-wrapper h3{line-height:50px;background:#79c12f;color:#fff;font-size:20px;margin:0;border-radius:3px 3px 0 0}#date-wrapper ol,#d-tit>div{width:16.6666666%;float:left;position:relative}#d-content{padding:10px}#d-content #d-bg{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:0 0 5px 5px;height:120px;overflow:hidden;margin-bottom:10px;position:relative}#d-cancel,#d-confirm{border-radius:3px;float:left;width:40%;line-height:30px;font-size:16px;background:#dcdddd;color:#666;margin:0 5%}#d-confirm{background:#79c12f;color:#fff}#date-wrapper li{line-height:40px;height:40px;cursor:pointer;position:relative}#d-tit{background:#f8f8f8;overflow:hidden;border-radius:5px 5px 0 0;line-height:30px;border:1px solid #e0e0e0;margin-bottom:-1px}#date-wrapper ol{-webkit-overflow-scrolling:touch;position:absolute;top:0;left:0}#date-wrapper ol:nth-child(2){left:16.6666666%}#date-wrapper ol:nth-child(3){left:33.3333332%}#date-wrapper ol:nth-child(4){left:49.9999998%}#date-wrapper ol:nth-child(5){left:66.6666664%}#date-wrapper ol:nth-child(6){left:83.333333%}#d-content #d-bg:after{content:\'\';height:40px;background:#ddd;position:absolute;top:40px;left:0;width:100%;z-index:1}#date-wrapper li span{position:absolute;width:100%;z-index:99;height:100%;left:0;top:0}#date-wrapper.two ol,.two #d-tit>div{width:50%}#date-wrapper.two ol:nth-child(2){left:50%}#date-wrapper.three ol,.three #d-tit>div{width:33.333333%}#date-wrapper.three ol:nth-child(2){left:33.333333%}#date-wrapper.three ol:nth-child(3){left:66.666666%}#date-wrapper.four ol,.four #d-tit>div{width:25%}#date-wrapper.four ol:nth-child(2){left:25%}#date-wrapper.four ol:nth-child(3){left:50%}#date-wrapper.four ol:nth-child(4){left:75%}#date-wrapper.five ol,.five #d-tit>div{width:20%}#date-wrapper.five ol:nth-child(2){left:20%}#date-wrapper.five ol:nth-child(3){left:40%}#date-wrapper.five ol:nth-child(4){left:60%}#date-wrapper.five ol:nth-child(5){left:80%}</style>';
+    var css = '<style type="text/css">a{text-decoration:none;}ol,li{margin:0;padding:0}li{list-style-type:none}#date-wrapper{position:fixed;top:50%;left:50%;width:90%;margin: -139px 0 0 -45%;z-index:56;text-align:center;background:#fff;border-radius:3px;padding-bottom:15px;display:none}#d-mask{position:fixed;width:100%;height:100%;top:0;left:0;background:#000;filter:alpha(Opacity=50);-moz-opacity:.5;opacity:.5;z-index:55;display:none}#date-wrapper h3{line-height:50px;background:#79c12f;color:#fff;font-size:20px;margin:0;border-radius:3px 3px 0 0}#date-wrapper ol,#d-tit>div{width:16.6666666%;float:left;position:relative}#d-content{padding:10px}#d-content #d-bg{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:0 0 5px 5px;height:120px;overflow:hidden;margin-bottom:10px;position:relative}#d-cancel,#d-confirm{border-radius:3px;float:left;width:40%;line-height:30px;font-size:16px;background:#dcdddd;color:#666;margin:0 5%}#d-confirm{background:#79c12f;color:#fff}#date-wrapper li{line-height:40px;height:40px;cursor:pointer;position:relative}#d-tit{background:#f8f8f8;overflow:hidden;border-radius:5px 5px 0 0;line-height:30px;border:1px solid #e0e0e0;margin-bottom:-1px}#date-wrapper ol{-webkit-overflow-scrolling:touch;position:absolute;top:0;left:0}#date-wrapper ol:nth-child(2){left:16.6666666%}#date-wrapper ol:nth-child(3){left:33.3333332%}#date-wrapper ol:nth-child(4){left:49.9999998%}#date-wrapper ol:nth-child(5){left:66.6666664%}#date-wrapper ol:nth-child(6){left:83.333333%}#d-content #d-bg:after{content:\'\';height:40px;background:#ddd;position:absolute;top:40px;left:0;width:100%;z-index:1}#date-wrapper li span{position:absolute;width:100%;z-index:99;height:100%;left:0;top:0}#date-wrapper.two ol,.two #d-tit>div{width:50%}#date-wrapper.two ol:nth-child(2){left:50%}#date-wrapper.three ol,.three #d-tit>div{width:33.333333%}#date-wrapper.three ol:nth-child(2){left:33.333333%}#date-wrapper.three ol:nth-child(3){left:66.666666%}#date-wrapper.four ol,.four #d-tit>div{width:25%}#date-wrapper.four ol:nth-child(2){left:25%}#date-wrapper.four ol:nth-child(3){left:50%}#date-wrapper.four ol:nth-child(4){left:75%}#date-wrapper.five ol,.five #d-tit>div{width:20%}#date-wrapper.five ol:nth-child(2){left:20%}#date-wrapper.five ol:nth-child(3){left:40%}#date-wrapper.five ol:nth-child(4){left:60%}#date-wrapper.five ol:nth-child(5){left:80%}#date-wrapper.hms #d-hours{left:0;}#date-wrapper.hms #d-minutes{left:33.333333%;}#date-wrapper.hms #d-seconds{left:66.666666%;}#date-wrapper.hm #d-hours{left:0;}#date-wrapper.hm #d-minutes{left:50%;}</style>';
 	
 	if(isEnglish){
 		domDate = domDate.replace('选择日期','DatePicker').replace('取消','cancel').replace('确定','confirm');
@@ -209,18 +211,17 @@
         },
         resetActive:function(el){
              var d = new Date(),
-                 date = el[0].tagName == 'INPUT' ? el.val():el.text();
+				 date = el.data('fullDate');
   
              if(opt.location == 'before' && date){
                 d = new Date(date);
-				//如果类似18/04这样会报错，后续完善
-				if(d == 'Invalid Date'){d = new Date();}
+				//if(d == 'Invalid Date'){d = new Date();}
 				var end = createDate.bissextile(d.getFullYear(),d.getMonth() + 1);
 				if($('#d-day>li').length != end + 2){
 					createDate.d(end);
 				}
              }
-            if(opt.limitTime == 'tomorrow'){
+            if(opt.limitTime == 'tomorrow' && !opt.location){
                 d.setDate(d.getDate()+1);
             }
 			$('#date-wrapper ol').each(function() {
@@ -317,6 +318,14 @@
 					elTit.children().show().end().children(':gt(1)').hide();
 					elBg.children().show().end().children(':gt(1)').hide();
 					el.attr('class','two');
+				}else if(dateFormat[4].indexOf(opt.type) == 0){//时分秒
+					elTit.children().show().end().children(':lt(3)').hide();
+					elBg.children().show().end().children(':lt(3)').hide();
+					el.attr('class','three hms');
+				}else if(dateFormat[4].indexOf(opt.type) == 1){//时分
+					elTit.children().show().end().children(':lt(3)').hide().parent().children().eq(5).hide();
+					elBg.children().show().end().children(':lt(3)').hide().parent().children().eq(5).hide();
+					el.attr('class','two hm');
 				}
                 createDate.resetActive(that);
                 createDate.show(true);
@@ -345,7 +354,8 @@
             index = dateFormat[0].indexOf(opt.type),
             index1 = dateFormat[1].indexOf(opt.type),
             index2 = dateFormat[2].indexOf(opt.type),
-            index3 = dateFormat[3].indexOf(opt.type);
+            index3 = dateFormat[3].indexOf(opt.type),
+			index4 = dateFormat[4].indexOf(opt.type);
 			
         if( index != -1){//年月日 时分秒
             switch(index){
@@ -407,7 +417,12 @@
 				  str = y.substring(2)+'/'+m;
 				  break;
 			}  
-        }
+        }else if(index4 == 0){//时分秒
+			str = h+':'+min+':'+s;
+		}else if(index4 == 1){//时分
+			str = h+':'+ min;
+		}
+
         if(opt.limitTime == 'today'){
             var d = new Date(),
 				error = !isEnglish ? '不能选择过去的时间':'You can\'t choose the past time';
@@ -437,7 +452,10 @@
         }else{
             that.text(str);
         }
-
+		
+		if(opt.location){
+			that.data('fullDate',y+'-'+m+'-'+d+' '+h+':'+min+':'+s);
+		}
         createDate.show(false);
         createDate.toNow(true);
     })
