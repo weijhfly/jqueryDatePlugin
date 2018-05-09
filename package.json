@@ -1,6 +1,6 @@
 {
   "name": "jquery-date",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "jquery移动端时间插件",
   "main": "jquery.date.js",
   "bin": "jquery.date.js",

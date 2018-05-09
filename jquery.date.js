@@ -1,7 +1,7 @@
 /*!
- * jquery.date.js v1.4.1
+ * jquery.date.js v1.4.2
  * By 雾空 https://github.com/weijhfly/jqueryDatePlugin
- * Time:2017/1/24
+ * Date:2017/1/24
 */
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
@@ -32,7 +32,7 @@
         tend = isTouch ? "touchend" : "mouseup",
         tcancel = isTouch ? "touchcancel" : "mouseleave",
         isEnglish = (navigator.language || navigator.browserLanguage).toLowerCase().indexOf('zh') == -1,
-		//基于40px的高度滑动,如需改动要改这，不能用样式覆盖 如 if(document.documentElement.clientWidth <= 320){h=30;}
+		//基于40px的高度滑动,如需改动要改这，不能用样式覆盖 如 document.documentElement.clientWidth <= 320? 30:40
 		h = 40,
 		dpr = $('html').attr('data-dpr') || 1,
 		resH = h*dpr,
