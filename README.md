@@ -3,7 +3,7 @@
 - 支持年月、年月日、年月日时分、年月日时分秒等，详细格式见demo.html/jquery.date.js。
 - 时间限制limitTime参数目前只做了年月日限制。
 
-下一版本计划
+下一版本计划 ([rolldate--传送门](https://github.com/weijhfly/rolldate "rolldate"))
 -----------------------------------
 - 不依赖jquery。
 - 使用new重写，配置将不挂在dom上，增加可选回调函数。
