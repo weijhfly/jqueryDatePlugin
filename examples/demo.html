@@ -80,6 +80,16 @@
 	跳转至之前选择的时间
 	<br>
 	<button type="button" id="date6" data-options="{'type':'YYYY-MM-DD','beginYear':2010,'endYear':2088,'location':'before'}" style="width:170px;height:25px;vertical-align: middle;text-align: left;"></button>
+	<hr>
+	自定义日期格式(只展示月和天)
+	<br>
+	<button type="button" id="date9" data-options="{'type':'YYYY-MM-DD','beginYear':2010,'endYear':2088,'location':'before','callback':'setDate.format'}" style="width:170px;height:25px;vertical-align: middle;text-align: left;"></button>
+	<br>
+	<hr>
+	日期判断，阻止插件运行(结束时间要大于开始时间)
+	<br>
+	<button type="button" id="date10" data-options="{'type':'YYYY-MM-DD','beginYear':2010,'endYear':2088,'location':'before'}" style="width:170px;height:25px;vertical-align: middle;text-align: left;">2018-08-01</button>
+	<button type="button" id="date11" data-options="{'type':'YYYY-MM-DD','beginYear':2010,'endYear':2088,'location':'before','callback':'setDate.checkDate'}" style="width:170px;height:25px;vertical-align: middle;text-align: left;">结束时间</button>
 	<br>
 	<br>
 	<br>
@@ -93,7 +103,28 @@
 		$.date('#date5');
 		$.date('#date6');
 		$.date('#date7');
-		$.date('#date8');	
+		$.date('#date8');
+		/*注意对象或函数必须是全局的，callback只接受object.function或function两种,当前的jquery版本功能不是太完善，
+		  欢迎关注后续的新版本rolldate(给个star吧^_^),https://github.com/weijhfly/rolldate
+		*/
+		$.date('#date9');
+		var setDate = {
+			format:function(date){
+				return date.substr(date.indexOf('-')+1);
+			},
+			checkDate:function(date){
+				var d = $('#date10').text(),
+					d1 = new Date(d),
+            		d2 = new Date(date);
+
+            	if(d2 < d1){
+            		alert('结束时间不能小于开始时间')
+            		return false;
+            	}
+			}
+		}
+		$.date('#date10');
+		$.date('#date11');
 	</script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /*!
- * jquery.date.js v1.4.2
+ * jquery.date.js v1.4.3
  * By 雾空 https://github.com/weijhfly/jqueryDatePlugin
  * Date:2017/1/24
 */
@@ -55,7 +55,8 @@
             endYear: 2088, //可不填，结束年份不会小于当前年份           
             type:'YYYY-MM-DD',
             limitTime:false,//限制选择时间 today 今天之前的时间不可选 tomorrow 明天之前的不可选
-            location:null //before 跳转至之前选择的时间，如果为空则跳转至当前时间
+            location:null, //before 跳转至之前选择的时间，如果为空则跳转至当前时间
+            callback:null//回调函数
         };
     //dom渲染
     domDate = '<div id="date-wrapper"><h3>选择日期</h3><div id="d-content"><div id="d-tit"><div class="t1">年</div><div class="t2">月</div><div class="t3">日</div><div class="t4">时</div><div class="t5">分</div><div class="t6">秒</div></div><div id="d-bg"><ol id="d-year"></ol><ol id="d-month"></ol><ol id="d-day"></ol><ol id="d-hours"></ol><ol id="d-minutes"></ol><ol id="d-seconds"></ol></div></div><a id="d-cancel" href="javascript:">取消</a><a id="d-confirm" href="javascript:">确定</a></div><div id="d-mask"></div>';
@@ -445,6 +446,21 @@
                 alert(error);
                 return false;
             }  
+        }
+        // 回调函数
+        var fun = opt.callback;
+        if(fun){
+            if(fun.indexOf('.') == -1){
+                var flag = window[fun](str);
+            }else{
+                var arr = fun.split('.'),
+                    flag = window[arr[0]][arr[1]](str);
+            }
+            if(flag == false){
+                return false;
+            }else if(flag){
+                str = flag;
+            }
         }
         //赋值
         if(that.get(0).tagName == 'INPUT'){
