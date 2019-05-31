@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>jdate demo</title>
+	<!-- bootstrap.css仅作为示例演示使用 -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+		h1 {
+			font-size: 30px;
+		}
+
+		.form-control[readonly] {
+			background: none;
+		}
+
+		@media(max-width: 414px) {
+			.form-control {
+				font-size: 12px;
+			}
+		}
+
+		@media(max-width: 360px) {
+			.form-control {
+				font-size: 10px;
+				padding: 0 5px;
+			}
+		}
+
+		@media(max-width: 320px) {
+			.col-xs-6 {
+				padding: 0 5px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>jdate 多格式、功能强大的移动端日期选择插件</h1>
+			<p>此为jdate 2.0新版，完全参照jdate的下一代版本<a href="https://github.com/weijhfly/rolldate">rolldate</a>做了全新改版，旧版请点击
+				<a href="https://github.com/weijhfly/jqueryDatePlugin/tree/1.4.3">返回旧版</a></p>
+			<div>
+				<b>此版特色：</b><br>
+				1，拥有和rolldate完全一样的功能；<br>
+				2，体积更小，兼容性更强；<br>
+
+				<b>不足之处：</b><br>
+				1，滑动较慢；<br>
+				<br>
+				<b>此版更适合滑动天数少的情况(比如限制只能滑动几天)，或者兼容性要求高的情况，一般情况更推荐使用rolldate。</b>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<h4><strong>支持格式：(无限制)</strong></h4>
+		<p><strong>规则：年-YYYY 月-MM 日-DD 时-hh 分-mm 秒-ss 使用/、-、空格、:之一分隔，可以随意组合，不建议单个重复</strong></p>
+		<p>例：YYYY-MM、YYYY-MM-DD、YYYY-MM-DD hh:mm、YYYY-MM-DD hh:mm:ss、YYYY、MM、DD、hh:mm、hh:mm:ss、YYYY-MM-DD hh、hh、mm、ss、YYYY/DD...</p>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-1" placeholder="YYYY-MM">
+				</div>
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-2" placeholder="YYYY-MM-DD">
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-3" placeholder="YYYY-MM-DD hh">
+				</div>
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-4" placeholder="YYYY-MM-DD hh:mm">
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-5" placeholder="YYYY-MM-DD hh:mm:ss">
+				</div>
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-6" placeholder="hh:mm">
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-7" placeholder="hh:mm:ss">
+				</div>
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-8" placeholder="YYYY">
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-9" placeholder="MM">
+				</div>
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-10" placeholder="DD">
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-11" placeholder="hh">
+				</div>
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-12" placeholder="mm">
+				</div>
+			</div>
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-13" placeholder="ss">
+				</div>
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group1-14" placeholder="YYYY/DD">
+				</div>
+			</div>
+		</div>
+
+		<h4><strong>回调函数：</strong></h4>
+		<p>init、moveEnd、confirm、cancel</p>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group2-1" placeholder="完整实例">
+				</div>
+			</div>
+			<h5 class="col-xs-12">init return false可阻止插件运行</h5>
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group2-2" placeholder="init">
+				</div>
+			</div>
+			<h5 class="col-xs-12">confirm return false阻止插件运行,return其他值可以修改日期展示</h5>
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group2-3" placeholder="confirm修改日期">
+				</div>
+			</div>
+		</div>
+
+		<h4><strong>自定义语言</strong></h4>
+		<p>lang</p>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group3-1" placeholder="lang">
+				</div>
+			</div>
+		</div>
+
+		<h4><strong>设置默认日期</strong></h4>
+		<p>value</p>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group4-1" placeholder="设置默认日期">
+				</div>
+			</div>
+		</div>
+
+		<h4><strong>el传dom对象</strong></h4>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group5-1" placeholder="el传dom对象">
+				</div>
+			</div>
+		</div>
+
+		<h4><strong>分钟间隔</strong></h4>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group6-1" placeholder="分钟间隔5">
+				</div>
+			</div>
+		</div>
+		<h4><strong>使用原生click</strong></h4>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group7-1" placeholder="trigger:'click'">
+				</div>
+			</div>
+		</div>
+		<h4><strong>其他示例</strong></h4>
+		<div class="row">
+			<div class="form-group clearfix">
+				<div class="col-xs-6">
+					<input readonly class="form-control" type="text" id="date-group8-1" placeholder="不能小于当前的日期">
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		window.onload = function() {
+
+			// 格式
+			new Jdate({
+				el: '#date-group1-1',
+				format: 'YYYY-MM',
+				beginYear: 2000,
+				endYear: 2100
+			})
+			new Jdate({
+				el: '#date-group1-2',
+				format: 'YYYY-MM-DD',
+				beginYear: 2000,
+				endYear: 2100
+			})
+			new Jdate({
+				el: '#date-group1-3',
+				format: 'YYYY-MM-DD hh'
+			})
+			new Jdate({
+				el: '#date-group1-4',
+				format: 'YYYY-MM-DD hh:mm',
+				beginYear: 2000,
+				endYear: 2100
+			})
+			new Jdate({
+				el: '#date-group1-5',
+				format: 'YYYY-MM-DD hh:mm:ss',
+				beginYear: 2000,
+				endYear: 2100
+			})
+			new Jdate({
+				el: '#date-group1-6',
+				format: 'hh:mm'
+			})
+			new Jdate({
+				el: '#date-group1-7',
+				format: 'hh:mm:ss'
+			})
+			new Jdate({
+				el: '#date-group1-8',
+				format: 'YYYY',
+				beginYear: 2000,
+				endYear: 2100
+			})
+			new Jdate({
+				el: '#date-group1-9',
+				format: 'MM'
+			})
+			new Jdate({
+				el: '#date-group1-10',
+				format: 'DD'
+			})
+			new Jdate({
+				el: '#date-group1-11',
+				format: 'hh'
+			})
+			new Jdate({
+				el: '#date-group1-12',
+				format: 'mm'
+			})
+			new Jdate({
+				el: '#date-group1-13',
+				format: 'ss'
+			})
+			new Jdate({
+				el: '#date-group1-14',
+				format: 'YYYY/DD'
+			})
+			/* 回调函数
+			 * tips:	在vue及其他mvvm框架中使用时，在confirm中修改v-model绑定的数据即可
+			 */
+			new Jdate({
+				el: '#date-group2-1',
+				format: 'YYYY-MM-DD',
+				beginYear: 2000,
+				endYear: 2100,
+				init: function() {
+					console.log('插件开始触发');
+				},
+				moveEnd: function() {
+					console.log('滚动结束');
+				},
+				confirm: function(date) {
+					console.log(date)
+					console.log('确定按钮触发');
+				},
+				cancel: function() {
+					console.log('插件运行取消');
+				}
+			})
+			new Jdate({
+				el: '#date-group2-2',
+				format: 'YYYY-MM-DD',
+				beginYear: 2000,
+				endYear: 2100,
+				init: function() {
+					if (1 == 1) {
+						console.log('阻止插件继续执行');
+						return false;
+					}
+				}
+			})
+			new Jdate({
+				el: '#date-group2-3',
+				format: 'YYYY-MM-DD',
+				beginYear: 2000,
+				endYear: 2100,
+				confirm: function(date) {
+					return date.replace(/-/g, '/');
+				}
+			})
+			// 自定义语言
+			var lang = {
+				title: '自定义标题',
+				cancel: '取消',
+				confirm: '确认',
+				year: '年',
+				month: '月',
+				day: '日',
+				hour: '时',
+				min: '分',
+				sec: '秒'
+			};
+			// 如果某个值未修改可不传 以上同 var lang = {title:'自定义标题'} 允许传空串
+			new Jdate({
+				el: '#date-group3-1',
+				format: 'YYYY-MM-DD',
+				beginYear: 2000,
+				endYear: 2100,
+				lang: lang
+			})
+
+			// 设置默认日期 内部使用document.getElementById('date').bindDate = new Date('2019/05/13');
+			new Jdate({
+				el: '#date-group4-1',
+				format: 'YYYY-MM-DD',
+				beginYear: 2000,
+				endYear: 2100,
+				value: '2017-10-21' //或2017-10-21 23:52:50
+			})
+
+			// el传dom对象，只支持单个
+			new Jdate({
+				el: document.getElementById('date-group5-1'),
+				format: 'YYYY-MM-DD',
+				beginYear: 2000,
+				endYear: 2100
+			})
+
+			// 分钟按指定数分隔
+			new Jdate({
+				el: '#date-group6-1',
+				format: 'hh:mm',
+				minStep: 5
+			})
+			// 使用原生click
+			new Jdate({
+				el: '#date-group7-1',
+				trigger: 'click'
+			})
+
+			// 其他示例
+			//日期判断
+			new Jdate({
+				el: '#date-group8-1',
+				format: 'YYYY-MM-DD',
+				beginYear: 2000,
+				endYear: 2100,
+				confirm: function(date) {
+					var d = new Date(),
+						d1 = new Date(date.replace(/\-/g, "\/")),
+						d2 = new Date(d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()); //如果非'YYYY-MM-DD'格式，需要另做调整
+
+					if (d1 < d2) {
+						alert('不能小于当前的日期');
+						return false;
+					}
+				}
+			})
+		}
+	</script>
+</body>
+
+</html>

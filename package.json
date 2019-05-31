@@ -1,25 +1,57 @@
 {
   "name": "jquery-date",
-  "version": "1.4.3",
-  "description": "jquery移动端时间插件",
-  "main": "jquery.date.js",
-  "bin": "jquery.date.js",
+  "version": "2.0.0",
+  "description": "jquery-date 多格式、功能强大的移动端日期选择插件",
+  "main": "dist/jdate.min.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config config/jdate.config.js --mode development",
+    "build": "cross-env rollup -c",
+    "wpbuild": "cross-env NODE_ENV=production webpack --config config/jdate.config.js --mode production",
+    "start": "npm run wpbuild && npm run build"
   },
   "keywords": [
-    "jquery",
-    "date"
+    "date",
+    "time",
+    "jquery-date"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/weijhfly/jqueryDatePlugin"
   },
-  "author": "wjh",
+  "author": "雾空",
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    
+    "autoprefixer": "^9.0.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "cssnano": "^4.1.10",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.8.0",
+    "less-loader": "^4.1.0",
+    "postcss-loader": "^2.1.6",
+    "rollup": "^1.12.3",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-banner": "^0.2.0",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.0.0",
+    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-uglify": "^6.0.2",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5",
+    "webpack-merge": "^4.2.1"
   }
 }
