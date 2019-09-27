@@ -183,6 +183,7 @@ Jdate.prototype = {
             let that = $(this),
                 active = that.find('.active');
 
+            if(!active.length){return;}
             let liTop = -(active.position().top);
             that.animate({
                 top: liTop

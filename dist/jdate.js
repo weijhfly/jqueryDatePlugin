@@ -1,10 +1,11 @@
-/** 
- * Jdate 2.0.0
+/**
+ * Jdate 2.0.1
  * Copyright 2017-2019
  * weijhfly https://github.com/weijhfly/jqueryDatePlugin
  * Licensed under MIT
  * Released on: jan 24, 2017
  */
+
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -38,10 +39,10 @@
     }
   }
 
-  var css = "ul{margin:0;padding:0}li{list-style-type:none}.jdate-container{font-size:20px;color:#333;text-align:center}.jdate-container header{position:relative;line-height:60px;font-size:18px;border-bottom:1px solid #e0e0e0}.jdate-container .jdate-mask{position:fixed;width:100%;height:100%;top:0;left:0;background:#000;opacity:.4;z-index:999}.jdate-container .jdate-panel{position:fixed;bottom:0;left:0;width:100%;height:273px;z-index:1000;background:#fff;-webkit-animation-duration:.3s;animation-duration:.3s;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-iteration-count:1;animation-iteration-count:1}.jdate-container .jdate-btn{position:absolute;left:0;top:0;height:100%;padding:0 15px;color:#666;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent}.jdate-container .jdate-confirm{left:auto;right:0;color:#007bff}.jdate-container .jdate-content{position:relative;top:20px}.jdate-container .jdate-wrapper{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.jdate-container .jdate-wrapper>div{position:relative;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;height:173px;line-height:36px;overflow:hidden;-webkit-flex-basis:-8e;-ms-flex-preferred-size:-8e;flex-basis:-8e;width:1%}.jdate-container .jdate-wrapper ul{position:absolute;left:0;top:0;width:100%;margin-top:68px}.jdate-container .jdate-wrapper li{height:36px}.jdate-container .jdate-dim{position:absolute;left:0;top:0;width:100%;height:68px;background:-webkit-gradient(linear,left bottom,left top,from(hsla(0,0%,100%,.4)),to(hsla(0,0%,100%,.8)));background:-webkit-linear-gradient(bottom,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));background:-o-linear-gradient(bottom,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));background:-webkit-gradient(linear, left bottom, left top, from(hsla(0, 0%, 100%, 0.4)), to(hsla(0, 0%, 100%, 0.8)));background:-webkit-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));background:-o-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));background:linear-gradient(0deg,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));pointer-events:none;-webkit-transform:translateZ(0);transform:translateZ(0);z-index:10}.jdate-container .mask-top{border-bottom:1px solid #ebebeb}.jdate-container .mask-bottom{top:auto;bottom:1px;border-top:1px solid #ebebeb}.jdate-container .fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.jdate-container .fadeOut{-webkit-animation-name:fadeOut;animation-name:fadeOut}@-webkit-keyframes fadeIn{0%{bottom:-273px}to{bottom:0}}@keyframes fadeIn{0%{bottom:-273px}to{bottom:0}}@-webkit-keyframes fadeOut{0%{bottom:0}to{bottom:-273px;display:none}}@keyframes fadeOut{0%{bottom:0}to{bottom:-273px;display:none}}@media screen and (max-width:414px){.jdate-container{font-size:18px}}@media screen and (max-width:320px){.jdate-container{font-size:15px}}";
+  var css = "ul{margin:0;padding:0}li{list-style-type:none}.jdate-container{font-size:20px;color:#333;text-align:center}.jdate-container header{position:relative;line-height:60px;font-size:18px;border-bottom:1px solid #e0e0e0}.jdate-container .jdate-mask{position:fixed;width:100%;height:100%;top:0;left:0;background:#000;opacity:.4;z-index:999}.jdate-container .jdate-panel{position:fixed;bottom:0;left:0;width:100%;height:273px;z-index:1000;background:#fff;-webkit-animation-duration:.3s;animation-duration:.3s;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-iteration-count:1;animation-iteration-count:1}.jdate-container .jdate-btn{position:absolute;left:0;top:0;height:100%;padding:0 15px;color:#666;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent}.jdate-container .jdate-confirm{left:auto;right:0;color:#007bff}.jdate-container .jdate-content{position:relative;top:20px}.jdate-container .jdate-wrapper{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.jdate-container .jdate-wrapper>div{position:relative;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;height:173px;line-height:36px;overflow:hidden;-webkit-flex-basis:-8e;-ms-flex-preferred-size:-8e;flex-basis:-8e;width:1%}.jdate-container .jdate-wrapper ul{position:absolute;left:0;top:0;width:100%;margin-top:68px}.jdate-container .jdate-wrapper li{height:36px}.jdate-container .jdate-dim{position:absolute;left:0;top:0;width:100%;height:68px;background:-o-linear-gradient(bottom,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));background:-webkit-gradient(linear, left bottom, left top, from(hsla(0, 0%, 100%, 0.4)), to(hsla(0, 0%, 100%, 0.8)));background:-o-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));background:linear-gradient(0deg,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));pointer-events:none;-webkit-transform:translateZ(0);transform:translateZ(0);z-index:10}.jdate-container .mask-top{border-bottom:1px solid #ebebeb}.jdate-container .mask-bottom{top:auto;bottom:1px;border-top:1px solid #ebebeb}.jdate-container .fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.jdate-container .fadeOut{-webkit-animation-name:fadeOut;animation-name:fadeOut}@-webkit-keyframes fadeIn{0%{bottom:-273px}to{bottom:0}}@keyframes fadeIn{0%{bottom:-273px}to{bottom:0}}@-webkit-keyframes fadeOut{0%{bottom:0}to{bottom:-273px;display:none}}@keyframes fadeOut{0%{bottom:0}to{bottom:-273px;display:none}}@media screen and (max-width:414px){.jdate-container{font-size:18px}}@media screen and (max-width:320px){.jdate-container{font-size:15px}}";
   styleInject(css);
 
-  var version = "2.0.0";
+  var version = "2.0.1";
 
   var $ = typeof $ != 'undefined' ? $ : typeof jQuery != 'undefined' ? jQuery : null,
       h = 36;
@@ -206,6 +207,9 @@
               var that = $(this),
                   active = that.find('.active');
 
+              if (!active.length) {
+                  return;
+              }
               var liTop = -active.position().top;
               that.animate({
                   top: liTop
